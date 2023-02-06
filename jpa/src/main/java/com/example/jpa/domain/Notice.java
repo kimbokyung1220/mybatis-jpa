@@ -26,4 +26,5 @@ public class Notice extends Time{
     private String content;
     @Column(nullable = false)
     private int password;
+
 }
