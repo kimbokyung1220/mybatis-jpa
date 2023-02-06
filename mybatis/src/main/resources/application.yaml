@@ -1,0 +1,24 @@
+server:
+  port: 8081
+
+spring:
+
+  h2:
+    console:
+      enabled: true 
+  profiles:
+    active: local
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/mybatis
+    username: sa
+
+
+mybatis:
+  # 스네이크 -> 카멜케이스로 자동 변환
+  configuration:
+    map-underscore-to-camel-case: true
+  # mapper 위치
+  mapper-locations: classpath:mapper/**.xml
+
