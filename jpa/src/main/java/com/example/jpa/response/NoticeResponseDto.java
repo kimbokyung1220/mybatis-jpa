@@ -8,10 +8,11 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class NoticeResponseDto {
+    private Long id;
     private String title;
     private String writer;
     private String content;
     private int password;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }
