@@ -10,6 +10,10 @@ public interface NoticeService {
      */
     ResponseDto<Object> getNoticeAllList();
     /**
+     * 게시글 상세조회
+     */
+    ResponseDto<Object> getNoticeList(Long id);
+    /**
      * 게시글 등록
      */
     void createNotice(NoticeRequestDto requestDto);

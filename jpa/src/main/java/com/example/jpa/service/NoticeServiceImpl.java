@@ -27,7 +27,7 @@ public class NoticeServiceImpl implements NoticeService{
     public ResponseDto<Object> getNoticeAllList() {
 
         // 최신글부터 조회
-        List<Notice> noticeList = noticeRepository.findAllByOrderByCreatedAtDesc();
+        List<Notice> noticeList = noticeRepository.findAllByOrderByIdDesc();
         List<NoticeResponseDto> noticeDtoAllList = new ArrayList<>();
 
         for(Notice notice : noticeList) {
@@ -48,11 +48,36 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     /**
+     * 게시글 상세조회
+     */
+    @Override
+    public ResponseDto<Object> getNoticeList(Long id) {
+
+        // notice가 존재하는지 여부
+        Notice notice = isPresentNotice(id);
+        if(notice == null) {
+            return ResponseDto.fail(false,"해당 게시글을 찾을 수 없습니다.");
+        }
+        NoticeResponseDto noticeList = NoticeResponseDto.builder()
+                .id(notice.getId())
+                .title(notice.getTitle())
+                .writer(notice.getWriter())
+                .content(notice.getContent())
+                .password(notice.getPassword())
+                .createdAt(notice.getCreatedAt())
+                .modifiedAt(notice.getModifiedAt())
+                .build();
+
+        return ResponseDto.success(noticeList, "상세조회");
+    }
+
+    /**
      * 게시글 등록
      */
     @Override
     @Transactional
     public void createNotice(NoticeRequestDto requestDto) {
+        // controller Advice
         Notice notice = Notice.builder()
                 .title(requestDto.getTitle())
                 .writer(requestDto.getWriter())

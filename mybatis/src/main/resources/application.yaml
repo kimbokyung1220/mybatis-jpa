@@ -5,7 +5,7 @@ spring:
 
   h2:
     console:
-      enabled: true 
+      enabled: true
   profiles:
     active: local
 
@@ -20,5 +20,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   # mapper 위치
-  mapper-locations: classpath:mapper/**.xml
+  mapper-locations: mapper/*.xml
+  # resultType 경로 명시
+  type-aliases-package: com.example.mybatis.model
 

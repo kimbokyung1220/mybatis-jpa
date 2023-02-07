@@ -6,10 +6,11 @@ import com.example.jpa.response.ResponseDto;
 import com.example.jpa.service.NoticeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/jpa")
 @AllArgsConstructor
 public class NoticeController {
 
@@ -24,10 +25,18 @@ public class NoticeController {
     }
 
     /**
+     * 게시글 상세 조회
+     */
+    @PostMapping(value = "/notice/{id}")
+    public ResponseDto<Object> getNoticeList(@PathVariable Long id) {
+        return noticeService.getNoticeList(id);
+    }
+
+    /**
      * 게시글 등록
      */
     @PostMapping(value = "/notice")
-    public ResponseDto<Object> createNotice(@RequestBody NoticeRequestDto requestDto) {
+    public ResponseDto<Object> createNotice(@RequestBody @Validated NoticeRequestDto requestDto) {
         noticeService.createNotice(requestDto);
         return noticeService.getNoticeAllList();
     }
