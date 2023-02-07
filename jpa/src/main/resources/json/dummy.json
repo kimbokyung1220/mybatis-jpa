@@ -1,12 +1,12 @@
 {
-  "data": [
+  "rowData": [
     {
       "basicDate": "2023.01.01",
       "impCnt": 2322,
       "clickCnt": 662,
       "convCnt": 35.0,
       "sellCost": 797234,
-      "adspend": 45509
+      "adSpend": 45509
     },
     {
       "basicDate": "2023.01.02",
@@ -14,7 +14,7 @@
       "clickCnt": 607,
       "convCnt": 45.2,
       "sellCost": 444404,
-      "adspend": 21377
+      "adSpend": 21377
     },
     {
       "basicDate": "2023.01.03",
@@ -22,7 +22,7 @@
       "clickCnt": 635,
       "convCnt": 10.2,
       "sellCost": 440565,
-      "adspend": 48735
+      "adSpend": 48735
     },
     {
       "basicDate": "2023.01.04",
@@ -30,7 +30,7 @@
       "clickCnt": 946,
       "convCnt": 52.6,
       "sellCost": 758462,
-      "adspend": 85904
+      "adSpend": 85904
     },
     {
       "basicDate": "2023.01.05",
@@ -38,7 +38,7 @@
       "clickCnt": 528,
       "convCnt": 1.5,
       "sellCost": 133867,
-      "adspend": 53969
+      "adSpend": 53969
     },
     {
       "basicDate": "2023.01.06",
@@ -46,7 +46,7 @@
       "clickCnt": 653,
       "convCnt": 46.5,
       "sellCost": 778812,
-      "adspend": 13667
+      "adSpend": 13667
     },
     {
       "basicDate": "2023.01.07",
@@ -54,7 +54,7 @@
       "clickCnt": 897,
       "convCnt": 15.2,
       "sellCost": 612430,
-      "adspend": 15872
+      "adSpend": 15872
     },
     {
       "basicDate": "2023.01.08",
@@ -62,7 +62,7 @@
       "clickCnt": 605,
       "convCnt": 69.8,
       "sellCost": 806693,
-      "adspend": 72779
+      "adSpend": 72779
     },
     {
       "basicDate": "2023.01.09",
@@ -70,7 +70,7 @@
       "clickCnt": 720,
       "convCnt": 59.9,
       "sellCost": 312499,
-      "adspend": 93107
+      "adSpend": 93107
     },
     {
       "basicDate": "2023.01.10",
@@ -78,7 +78,7 @@
       "clickCnt": 961,
       "convCnt": 47.3,
       "sellCost": 269687,
-      "adspend": 47222
+      "adSpend": 47222
     },
     {
       "basicDate": "2023.01.11",
@@ -86,7 +86,7 @@
       "clickCnt": 942,
       "convCnt": 20.8,
       "sellCost": 153209,
-      "adspend": 25353
+      "adSpend": 25353
     },
     {
       "basicDate": "2023.01.12",
@@ -94,7 +94,7 @@
       "clickCnt": 974,
       "convCnt": 26.7,
       "sellCost": 274750,
-      "adspend": 40993
+      "adSpend": 40993
     },
     {
       "basicDate": "2023.01.13",
@@ -102,7 +102,7 @@
       "clickCnt": 758,
       "convCnt": 15.5,
       "sellCost": 396703,
-      "adspend": 43442
+      "adSpend": 43442
     },
     {
       "basicDate": "2023.01.14",
@@ -110,7 +110,7 @@
       "clickCnt": 582,
       "convCnt": 83.9,
       "sellCost": 806356,
-      "adspend": 92145
+      "adSpend": 92145
     },
     {
       "basicDate": "2023.01.15",
@@ -118,7 +118,7 @@
       "clickCnt": 803,
       "convCnt": 94.6,
       "sellCost": 300512,
-      "adspend": 97346
+      "adSpend": 97346
     },
     {
       "basicDate": "2023.01.16",
@@ -126,7 +126,7 @@
       "clickCnt": 751,
       "convCnt": 15.8,
       "sellCost": 761288,
-      "adspend": 48982
+      "adSpend": 48982
     },
     {
       "basicDate": "2023.01.17",
@@ -134,7 +134,7 @@
       "clickCnt": 530,
       "convCnt": 96.6,
       "sellCost": 934109,
-      "adspend": 11184
+      "adSpend": 11184
     },
     {
       "basicDate": "2023.01.18",
@@ -142,7 +142,7 @@
       "clickCnt": 938,
       "convCnt": 99.2,
       "sellCost": 518216,
-      "adspend": 97339
+      "adSpend": 97339
     },
     {
       "basicDate": "2023.01.19",
@@ -150,7 +150,7 @@
       "clickCnt": 752,
       "convCnt": 37.4,
       "sellCost": 715803,
-      "adspend": 41332
+      "adSpend": 41332
     },
     {
       "basicDate": "2023.01.20",
@@ -158,7 +158,7 @@
       "clickCnt": 928,
       "convCnt": 23.6,
       "sellCost": 376400,
-      "adspend": 45116
+      "adSpend": 45116
     },
     {
       "basicDate": "2023.01.21",
@@ -166,7 +166,7 @@
       "clickCnt": 949,
       "convCnt": 92.8,
       "sellCost": 813885,
-      "adspend": 60163
+      "adSpend": 60163
     },
     {
       "basicDate": "2023.01.22",
@@ -174,7 +174,7 @@
       "clickCnt": 799,
       "convCnt": 19.52,
       "sellCost": 260322,
-      "adspend": 72956
+      "adSpend": 72956
     },
     {
       "basicDate": "2023.01.23",
@@ -182,7 +182,7 @@
       "clickCnt": 854,
       "convCnt": 87.26,
       "sellCost": 578225,
-      "adspend": 35191
+      "adSpend": 35191
     },
     {
       "basicDate": "2023.01.24",
@@ -190,7 +190,7 @@
       "clickCnt": 734,
       "convCnt": 28.23,
       "sellCost": 286273,
-      "adspend": 17583
+      "adSpend": 17583
     },
     {
       "basicDate": "2023.01.25",
@@ -198,7 +198,7 @@
       "clickCnt": 908,
       "convCnt": 84.52,
       "sellCost": 296336,
-      "adspend": 58787
+      "adSpend": 58787
     },
     {
       "basicDate": "2023.01.26",
@@ -206,7 +206,7 @@
       "clickCnt": 572,
       "convCnt": 72.2,
       "sellCost": 466179,
-      "adspend": 86897
+      "adSpend": 86897
     },
     {
       "basicDate": "2023.01.27",
@@ -214,7 +214,7 @@
       "clickCnt": 531,
       "convCnt": 97.3,
       "sellCost": 307919,
-      "adspend": 72426
+      "adSpend": 72426
     },
     {
       "basicDate": "2023.01.28",
@@ -222,7 +222,7 @@
       "clickCnt": 876,
       "convCnt": 12.85,
       "sellCost": 356610,
-      "adspend": 58026
+      "adSpend": 58026
     },
     {
       "basicDate": "2023.01.29",
@@ -230,7 +230,7 @@
       "clickCnt": 991,
       "convCnt": 85.26,
       "sellCost": 464964,
-      "adspend": 51413
+      "adSpend": 51413
     },
     {
       "basicDate": "2023.01.30",
@@ -238,7 +238,7 @@
       "clickCnt": 915,
       "convCnt": 14.23,
       "sellCost": 815642,
-      "adspend": 32448
+      "adSpend": 32448
     }
   ]
 }

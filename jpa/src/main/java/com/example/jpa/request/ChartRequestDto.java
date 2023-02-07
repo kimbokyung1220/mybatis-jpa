@@ -8,13 +8,13 @@ public class ChartRequestDto {
     @NotNull
     private String basicDate; //날짜
     @NotNull
-    private int impCnt; //노출수
+    private Long impCnt; //노출수
     @NotNull
-    private int clickCnt; //클릭수
+    private Long clickCnt; //클릭수
     @NotNull
     private double convCnt; //전환율(클릭수 / 노출수)
     @NotNull
-    private int sellCost; //판매금액
+    private Long sellCost; //판매금액
     @NotNull
-    private int adSpend; //광고비
+    private Long adSpend; //광고비
 }
