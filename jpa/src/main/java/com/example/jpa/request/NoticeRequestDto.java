@@ -1,7 +1,10 @@
 package com.example.jpa.request;
 
-import com.sun.istack.NotNull;
+
 import lombok.Getter;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Getter
 public class NoticeRequestDto {
@@ -11,6 +14,6 @@ public class NoticeRequestDto {
         private String writer;
         @NotNull
         private String content;
-        @NotNull
+        @Min(value=4, message="4자리 이상으로 입력해주세요.")
         private int password;
 }

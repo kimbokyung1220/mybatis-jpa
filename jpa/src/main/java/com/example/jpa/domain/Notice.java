@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Getter
@@ -28,6 +29,7 @@ public class Notice extends Time {
     private int password;
 
     public void update(NoticeRequestDto requestDto) {
+//        this.title = requestDto.getTitle() != null ? requestDto.getTitle() : this.title;
         this.title = requestDto.getTitle();
         this.writer = requestDto.getWriter();
         this.content = requestDto.getContent();

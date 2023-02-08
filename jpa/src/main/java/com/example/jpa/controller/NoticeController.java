@@ -1,13 +1,12 @@
 package com.example.jpa.controller;
 
 import com.example.jpa.request.NoticeRequestDto;
-import com.example.jpa.response.NoticeResponseDto;
 import com.example.jpa.response.ResponseDto;
 import com.example.jpa.service.NoticeService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/jpa")
@@ -36,7 +35,7 @@ public class NoticeController {
      * 게시글 등록
      */
     @PostMapping(value = "/notice")
-    public ResponseDto<Object> createNotice(@RequestBody @Validated NoticeRequestDto requestDto) {
+    public ResponseDto<Object> createNotice(@Valid @RequestBody NoticeRequestDto requestDto) {
         noticeService.createNotice(requestDto);
         return noticeService.getNoticeAllList();
     }
