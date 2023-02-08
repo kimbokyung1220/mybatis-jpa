@@ -11,12 +11,11 @@ import org.springframework.validation.FieldError;
 import java.util.List;
 
 /**
- * 일관된 오류 메시지 형식으로 응답하기 위해 공통 ErrorResponse를 생성
+ * 오류 메시지를 일관된 형식으로 응답하기 위해 공통 ErrorResponse를 생성
  */
 @Getter
 @ToString
 @RequiredArgsConstructor
-
 public class ErrorResponse {
     private final String code;
     private final String desc;

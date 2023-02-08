@@ -1,6 +1,8 @@
 package com.example.jpa.service;
 
 import com.example.jpa.domain.Notice;
+import com.example.jpa.exception.CustomException;
+import com.example.jpa.exception.ErrorCode;
 import com.example.jpa.repository.NoticeRepository;
 import com.example.jpa.request.NoticeRequestDto;
 import com.example.jpa.response.NoticeResponseDto;
@@ -57,7 +59,7 @@ public class NoticeServiceImpl implements NoticeService{
         // notice가 존재하는지 여부
         Notice notice = isPresentNotice(id);
         if(notice == null) {
-            return ResponseDto.fail(false,"해당 게시글을 찾을 수 없습니다.");
+            throw new CustomException(ErrorCode.NOT_FOUND_ID);
         }
         NoticeResponseDto noticeList = NoticeResponseDto.builder()
                 .id(notice.getId())
@@ -99,7 +101,7 @@ public class NoticeServiceImpl implements NoticeService{
         // notice가 존재하는지 여부
         Notice notice = isPresentNotice(id);
         if(notice == null) {
-            return ResponseDto.fail(false,"해당 게시글을 찾을 수 없습니다.");
+            throw new CustomException(ErrorCode.NOT_FOUND_ID);
         }
         notice.update(requestDto);
         // 게시글 수정
@@ -112,7 +114,7 @@ public class NoticeServiceImpl implements NoticeService{
         // notice가 존재하는지 여부
         Notice notice = isPresentNotice(id);
         if(notice == null) {
-            return ResponseDto.fail(false,"해당 게시글을 찾을 수 없습니다.");
+            throw new CustomException(ErrorCode.NOT_FOUND_ID);
         }
         // 게시글 삭제
         noticeRepository.deleteById(id);

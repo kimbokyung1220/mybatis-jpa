@@ -2,6 +2,7 @@ package com.example.jpa.exception;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -12,14 +13,19 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
- * Exception handler 구현
- * @RestControllerAdvice를 활용하여 공통된 오류 메시지 형식으로 응답하도록 구현
+ *  [ Exception handler 구현 : 전역 예외처리 ]
+ * @RestControllerAdvice ( @ControllerAdvice [@Component 포함] + @ResponseBody )
+ *  - 전역적으로 에러를 핸들링하는 클래스를 만들어 어노테이션을 붙여줌으로써 에러 처리를 위임할 수 있음
+ *  - @ResponseBody가 붙어 있어 응답을 Json으로 내려줌
  */
 @RestControllerAdvice
 @Slf4j
 public class CustomExceptionHandler {
+    /**
+     * @ExceptionHandler: 특정 클래스에서 발생할 수 있는 예외를 잡아 Throw
+     */
+
     @ExceptionHandler({CustomException.class})
     public ResponseEntity<ErrorResponse> exceptionHandler(HttpServletRequest request, final CustomException e) {
         //e.printStackTrace();
