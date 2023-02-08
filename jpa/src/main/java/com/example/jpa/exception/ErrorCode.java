@@ -5,11 +5,12 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public enum ErrorCode {
-    INVALID_PARAMETER("CER-01", HttpStatus.BAD_REQUEST, "값을 다시 확인해 주시기 바랍니다."),
-    RESOURCE_NOT_FOUND("CER-02", HttpStatus.NOT_FOUND, "Resource not exists"),
-    INTERNAL_SERVER_ERROR("CER-03", HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
-    METHOD_ERROR("CER-04", HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"), //HttpMessageNotReadableException
-    SS_SS("CER-03", HttpStatus.INTERNAL_SERVER_ERROR),
+    INVALID_PARAMETER("CER-01", HttpStatus.BAD_REQUEST, "잘못된 값입니다."),
+    RESOURCE_NOT_FOUND("CER-02", HttpStatus.NOT_FOUND, "존재하지 않는 Resource입니다."),
+    INTERNAL_SERVER_ERROR("CER-03", HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error 입니다."),
+    METHOD_ERROR("CER-04", HttpStatus.INTERNAL_SERVER_ERROR, "잘못된 메서드 요청입니다."),
+    TYPE_NULL_ERROR("CER-05", HttpStatus.BAD_REQUEST,"모든 값을 입력해 주세요."),
+    HTTP_CT_ERROR("CER-06", HttpStatus.INTERNAL_SERVER_ERROR, " 잘못된 서버 요청입니다."),
     ;
 
     private final String code;

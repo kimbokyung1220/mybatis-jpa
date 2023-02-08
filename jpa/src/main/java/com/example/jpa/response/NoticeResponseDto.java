@@ -12,7 +12,7 @@ public class NoticeResponseDto {
     private String title;
     private String writer;
     private String content;
-    private int password;
+    private String password;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

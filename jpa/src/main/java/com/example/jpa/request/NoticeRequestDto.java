@@ -5,15 +5,19 @@ import lombok.Getter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 public class NoticeRequestDto {
-        @NotNull
+        private static final String pwPattern = "^(?=.*\\d).{4,8}$";
+
+        @NotNull(message = "제목을 입력해 주세요")
         private String title;
-        @NotNull
+        @NotNull(message = "작성자를 입력해 주세요")
         private String writer;
-        @NotNull
+        @NotNull(message = "내용을 입력해 주세요")
         private String content;
-        @Min(value=4, message="4자리 이상으로 입력해주세요.")
-        private int password;
+        @NotNull(message = "비밀번호를 입력해 주세요")
+        @Pattern(regexp = pwPattern, message="4~8자리 숫자로만 가능합니다.")
+        private String password;
 }

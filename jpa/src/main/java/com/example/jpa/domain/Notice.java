@@ -26,14 +26,13 @@ public class Notice extends Time {
     @Column(nullable = false)
     private String content;
     @Column(nullable = false)
-    private int password;
+    private String password;
 
     public void update(NoticeRequestDto requestDto) {
-//        this.title = requestDto.getTitle() != null ? requestDto.getTitle() : this.title;
-        this.title = requestDto.getTitle();
-        this.writer = requestDto.getWriter();
-        this.content = requestDto.getContent();
-        this.password = requestDto.getPassword();
+        this.title = requestDto.getTitle() != null ? requestDto.getTitle() : this.title;
+        this.writer = requestDto.getWriter() != null ? requestDto.getWriter() : this.writer;
+        this.content = requestDto.getContent() != null ? requestDto.getContent() : this.content;
+        this.password = requestDto.getPassword() != null ? requestDto.getPassword() : this.password;
     }
 
 }

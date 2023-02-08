@@ -44,7 +44,7 @@ public class NoticeController {
      * 게시글 수정
      */
     @PutMapping(value = "/notice/{id}")
-    public ResponseDto<Object> modifyNotice(@PathVariable Long id, @RequestBody NoticeRequestDto requestDto) {
+    public ResponseDto<Object> modifyNotice(@PathVariable Long id, @RequestBody @Valid NoticeRequestDto requestDto) {
         return noticeService.modifyNotice(id, requestDto);
     }
 
