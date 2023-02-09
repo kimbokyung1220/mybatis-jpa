@@ -18,6 +18,8 @@ dependencies {
     //Json-Parser
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
+    // JUnit
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
 }
 
 tasks.named('test') {

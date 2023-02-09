@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.NoSuchElementException;
 
 /**
  *  [ Exception handler 구현 : 전역 예외처리 ]
@@ -25,7 +26,6 @@ public class CustomExceptionHandler {
     /**
      * @ExceptionHandler: 특정 클래스에서 발생할 수 있는 예외를 잡아 Throw
      */
-
     @ExceptionHandler({CustomException.class})
     public ResponseEntity<ErrorResponse> exceptionHandler(HttpServletRequest request, final CustomException e) {
         //e.printStackTrace();
@@ -38,7 +38,7 @@ public class CustomExceptionHandler {
                         .build());
     }
 
-    @ExceptionHandler({InvalidFormatException.class})
+    @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<ErrorResponse> exceptionHandler(HttpServletRequest request, final InvalidFormatException e) {
         e.printStackTrace();
         return ResponseEntity
@@ -49,6 +49,18 @@ public class CustomExceptionHandler {
                         .status(ErrorCode.INVALID_PARAMETER.getStatus())
                         .build());
     }
+
+    // [Exception] 해당 데이터가 없을 때
+    @ExceptionHandler(NoSuchElementException.class)
+    public Object processValidationError(NoSuchElementException e) {
+        return ResponseEntity
+                .status(ErrorCode.NOT_FOUND_ID.getStatus())
+                .body(ErrorResponse.builder()
+                        .code(ErrorCode.NOT_FOUND_ID.getCode())
+                        .desc(e.getMessage() + "ddd")
+                        .build());
+    }
+
 
     // [Exception] API 호출 시 '객체' 혹은 '파라미터' 데이터 값이 유효하지 않은 경우
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -101,7 +102,7 @@ public class NoticeServiceImpl implements NoticeService{
         // notice가 존재하는지 여부
         Notice notice = isPresentNotice(id);
         if(notice == null) {
-            throw new CustomException(ErrorCode.NOT_FOUND_ID);
+            throw new NoSuchElementException(ErrorCode.NOT_FOUND_ID.getMessage());
         }
         notice.update(requestDto);
         // 게시글 수정
