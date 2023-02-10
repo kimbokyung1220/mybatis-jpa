@@ -55,7 +55,7 @@ public class NoticeServiceImpl implements NoticeService{
      * 게시글 상세조회
      */
     @Override
-    public ResponseDto<Object> getNoticeList(Long id) {
+    public NoticeResponseDto getNoticeList(Long id) {
 
         // notice가 존재하는지 여부
         Notice notice = isPresentNotice(id);
@@ -72,7 +72,7 @@ public class NoticeServiceImpl implements NoticeService{
                 .modifiedAt(notice.getModifiedAt())
                 .build();
 
-        return ResponseDto.success(noticeList, "상세조회");
+        return noticeList;
     }
 
     /**
@@ -80,16 +80,26 @@ public class NoticeServiceImpl implements NoticeService{
      */
     @Override
     @Transactional
-    public void createNotice(NoticeRequestDto requestDto) {
-        // controller Advice
+    public NoticeResponseDto createNotice(NoticeRequestDto requestDto) {
+        // Todo: modelMapper로 변경해보기
         Notice notice = Notice.builder()
                 .title(requestDto.getTitle())
                 .writer(requestDto.getWriter())
                 .content(requestDto.getContent())
                 .password(requestDto.getPassword())
                 .build();
+         noticeRepository.save(notice);
 
-        noticeRepository.save(notice);
+        NoticeResponseDto responseDto = NoticeResponseDto.builder()
+                .title(notice.getTitle())
+                .writer(notice.getWriter())
+                .content(notice.getContent())
+                .password(notice.getPassword())
+                .createdAt(notice.getCreatedAt())
+                .modifiedAt(notice.getModifiedAt())
+                .build();
+
+         return responseDto;
     }
 
     /**
@@ -97,20 +107,30 @@ public class NoticeServiceImpl implements NoticeService{
      */
     @Override
     @Transactional
-    public ResponseDto<Object> modifyNotice(Long id, NoticeRequestDto requestDto) {
+    public NoticeResponseDto modifyNotice(Long id, NoticeRequestDto requestDto) {
 
         // notice가 존재하는지 여부
         Notice notice = isPresentNotice(id);
         if(notice == null) {
             throw new NoSuchElementException(ErrorCode.NOT_FOUND_ID.getMessage());
         }
-        notice.update(requestDto);
         // 게시글 수정
-        return ResponseDto.success(getNoticeAllList(), "Notice_id [" + id + "번] " + " ===> 수정 성공");
+        notice.update(requestDto);
+
+        NoticeResponseDto noticeResponseDto = NoticeResponseDto.builder()
+                .title(notice.getTitle())
+                .writer(notice.getWriter())
+                .content(notice.getContent())
+                .password(notice.getPassword())
+                .createdAt(notice.getCreatedAt())
+                .modifiedAt(notice.getModifiedAt())
+                .build();
+      
+        return noticeResponseDto;
     }
 
     @Override
-    public ResponseDto<Object> deleteNotice(Long id) {
+    public Long deleteNotice(Long id) {
         
         // notice가 존재하는지 여부
         Notice notice = isPresentNotice(id);
@@ -119,7 +139,8 @@ public class NoticeServiceImpl implements NoticeService{
         }
         // 게시글 삭제
         noticeRepository.deleteById(id);
-        return ResponseDto.success(getNoticeAllList(),"Notice_id [" + id + "번] " + " ===> 삭제 성공");
+
+        return id;
     }
 
 

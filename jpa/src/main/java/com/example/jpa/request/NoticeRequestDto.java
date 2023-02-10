@@ -20,4 +20,11 @@ public class NoticeRequestDto {
         @NotNull(message = "비밀번호를 입력해 주세요")
         @Pattern(regexp = pwPattern, message="4~8자리 숫자로만 가능합니다.")
         private String password;
+
+        public NoticeRequestDto(String title, String writer, String content, String password) {
+                this.title = title;
+                this.writer = writer;
+                this.content = content;
+                this.password = password;
+        }
 }

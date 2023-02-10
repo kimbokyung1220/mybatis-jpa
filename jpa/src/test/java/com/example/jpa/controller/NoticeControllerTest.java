@@ -17,6 +17,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 
 @WebMvcTest(value = {NoticeController.class})
 @ExtendWith(MockitoExtension.class)
@@ -35,15 +37,16 @@ class NoticeControllerTest {
 
     @BeforeEach
     void setup() {
-        Notice notice = new Notice(100L, "제목", "작성자", "내용", "1234");
+        Notice notice = new Notice(100L, "테스트 제목", "테스트 작성자", "테스트 내용", "1234");
         given(noticeRepository.save(notice)).willReturn(notice); // 저장
         given(noticeRepository.findById(100L)).willReturn(Optional.of(notice)); // 상세조회
         given(noticeRepository.findAllByOrderByIdDesc()).willReturn(List.of(notice)); // 전체조회
     }
 
-    @Test
-    @DisplayName("[TEST] Notice 상세조회 id(100) - 성공")
-    void getNoticeListTest() {
-
-    }
+//    @Test
+//    @DisplayName("[TEST] Notice  id(100) - 성공")
+//    void getNoticeListTest() {
+//        mockMvc.perform(post("/api/notice/{id}", 100L))
+//                .andExpect(status().isOk());
+//    }
 }

@@ -1,8 +1,9 @@
 package com.example.jpa.controller;
 
 import com.example.jpa.request.NoticeRequestDto;
+import com.example.jpa.response.NoticeResponseDto;
 import com.example.jpa.response.ResponseDto;
-import com.example.jpa.service.NoticeService;
+import com.example.jpa.service.NoticeServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class NoticeController {
 
-    final private NoticeService noticeService;
+    final private NoticeServiceImpl noticeService;
 
     /**
      * 게시글 전체 조회
@@ -27,7 +28,7 @@ public class NoticeController {
      * 게시글 상세 조회
      */
     @PostMapping(value = "/notice/{id}")
-    public ResponseDto<Object> getNoticeList(@PathVariable Long id) {
+    public NoticeResponseDto getNoticeList(@PathVariable Long id) {
         return noticeService.getNoticeList(id);
     }
 
@@ -45,7 +46,8 @@ public class NoticeController {
      */
     @PutMapping(value = "/notice/{id}")
     public ResponseDto<Object> modifyNotice(@PathVariable Long id, @RequestBody @Valid NoticeRequestDto requestDto) {
-        return noticeService.modifyNotice(id, requestDto);
+        noticeService.modifyNotice(id, requestDto);
+        return ResponseDto.success(getNoticeAllList(), "Notice_id [" + id + "번] " + " ===> 수정 성공");
     }
 
     /**
@@ -53,6 +55,7 @@ public class NoticeController {
      */
     @DeleteMapping(value = "/notice/{id}")
     public ResponseDto<Object> deleteNotice(@PathVariable Long id) {
-        return noticeService.deleteNotice(id);
+        noticeService.deleteNotice(id);
+        return ResponseDto.success(getNoticeAllList(), "Notice_id [" + id + "번] " + " ===> 삭제 성공");
     }
 }

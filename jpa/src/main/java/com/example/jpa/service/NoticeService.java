@@ -1,6 +1,8 @@
 package com.example.jpa.service;
 
+import com.example.jpa.domain.Notice;
 import com.example.jpa.request.NoticeRequestDto;
+import com.example.jpa.response.NoticeResponseDto;
 import com.example.jpa.response.ResponseDto;
 
 public interface NoticeService {
@@ -12,17 +14,19 @@ public interface NoticeService {
     /**
      * 게시글 상세조회
      */
-    ResponseDto<Object> getNoticeList(Long id);
+    NoticeResponseDto getNoticeList(Long id);
     /**
      * 게시글 등록
+     *
+     * @return
      */
-    void createNotice(NoticeRequestDto requestDto);
+    NoticeResponseDto createNotice(NoticeRequestDto requestDto);
     /**
      * 게시글 수정
      */
-    ResponseDto<Object> modifyNotice(Long id, NoticeRequestDto requestDto);
+    NoticeResponseDto modifyNotice(Long id, NoticeRequestDto requestDto);
     /**
      * 게시글 삭제
      */
-    ResponseDto<Object> deleteNotice(Long id);
+    Long deleteNotice(Long id);
 }
