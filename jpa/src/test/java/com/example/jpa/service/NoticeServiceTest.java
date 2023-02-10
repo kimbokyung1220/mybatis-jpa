@@ -13,15 +13,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
  *  Notice 서비스 테스트 코드
- * 1. 전체조회 성공 테스트
- * 2. 전체조회 실패 테스트
- * 3. 등록    성공 테스트
- * 4. 수정    성공 테스트
- * 5. 삭제    성공 테스트
+ *  상세조회   성공 테스트
+ *  상세조회   실패 테스트 - 해당아이디가 존재하지 않음
+ *   등록     성공 테스트 
+ *   등록     실패 테스트
+ *   수정     성공 테스트
+ *   수정     실패 테스트
+ *   삭제     성공 테스트
+ *   삭제     실패 테스트
  */
 
 @SpringBootTest
@@ -44,9 +48,10 @@ class NoticeServiceTest {
     }
 
     @Test
-    @DisplayName("게시글 상세조회 테스트")
+    @DisplayName("게시글 상세조회 성공 테스트")
     void 게시글_상세조회_테스트() {
         System.out.println("getNoticeListTest");
+        Long id = 100L;
 
         // given
         NoticeResponseDto init = saveData();
@@ -57,15 +62,26 @@ class NoticeServiceTest {
 
         // then
         Assertions.assertThat(firstData.get().getId()).isEqualTo(selectData.getId());
+        
     }
-
     @Test
-    @DisplayName("게시글 등록 테스트")
+    @DisplayName("게시글 상세조회 실패 테스트")
+    void 게시글_상세조회_예외처리_1() {
+        /**
+         * NoSuchElementException
+         */
+
+        // 예외처리
+        Long id = 1000L;
+        Assertions.assertThatThrownBy(() -> noticeService.getNoticeList(id))
+                .isInstanceOf(NoSuchElementException.class)
+                .hasMessageContaining("해당하지 않는 id 입니다.");
+    }
+    @Test
+    @DisplayName("게시글 등록 성공/실패 테스트")
     void 게시글_등록_테스트() {
 
         //given
-        System.out.println("******** createNoticeTest ********");
-
         String title = "제목 입니다";
         String writer = "작성자 입니다";
         String content = "내용 입니다";
@@ -138,6 +154,7 @@ class NoticeServiceTest {
     @Transactional
     @Rollback(value = false)
     NoticeResponseDto saveData() {
+
         Notice notice = Notice.builder()
                 .title("제목입니다.")
                 .writer("작성자")
@@ -153,5 +170,12 @@ class NoticeServiceTest {
                 .content(notice.getContent())
                 .password(notice.getPassword())
                 .build();
+    }
+
+    /**
+     *
+     */
+    void isBlank(Long id) {
+
     }
 }

@@ -60,7 +60,7 @@ public class NoticeServiceImpl implements NoticeService{
         // notice가 존재하는지 여부
         Notice notice = isPresentNotice(id);
         if(notice == null) {
-            throw new CustomException(ErrorCode.NOT_FOUND_ID);
+            throw new NoSuchElementException(ErrorCode.NOT_FOUND_ID.getMessage());
         }
         NoticeResponseDto noticeList = NoticeResponseDto.builder()
                 .id(notice.getId())
@@ -135,7 +135,7 @@ public class NoticeServiceImpl implements NoticeService{
         // notice가 존재하는지 여부
         Notice notice = isPresentNotice(id);
         if(notice == null) {
-            throw new CustomException(ErrorCode.NOT_FOUND_ID);
+            throw new NoSuchElementException(ErrorCode.NOT_FOUND_ID.getMessage());
         }
         // 게시글 삭제
         noticeRepository.deleteById(id);
