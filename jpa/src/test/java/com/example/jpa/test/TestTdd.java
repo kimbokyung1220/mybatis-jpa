@@ -49,4 +49,13 @@ class TestTdd {
         System.out.println("## test3 시작 ##");
         System.out.println();
     }
+    /**
+     * @DisplayName()
+     * - 각 메소드의 테스트명 설정
+     */
+    @Test
+    @DisplayName("DisplayName 적용")
+    void displayNameTest() {
+        System.out.println("displayNameTest");
+    }
 }

@@ -1,4 +1,4 @@
-plugins {
+    plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.8'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
@@ -42,6 +42,8 @@ subprojects {
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         // H2
         implementation 'com.h2database:h2'
+        // JUnit
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
     }
 
     tasks.named('test') {

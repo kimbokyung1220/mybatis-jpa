@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -24,11 +24,11 @@ class NoticeRepositoryTest {
     }
 
     @Test
-    public void 게시글_전체목록_불러오기() {
+    public void test() {
         String title = "테스트 게시글";
         String writer = "테스트 작성자";
         String content = "테스트 내용";
-        String password = "테스트 비번";
+        String password = "1234";
 
         noticeRepository.save(Notice.builder()
                 .title(title)
@@ -38,9 +38,11 @@ class NoticeRepositoryTest {
                 .build());
 
         List<Notice> noticeList = noticeRepository.findAll();
-
         Notice notice = noticeList.get(0);
-       // assert(notice.getTitle()).isEqualTo
+        System.out.println("title");
+        System.out.println(notice.getTitle());
+
+//        assertThat(notice.getTitle()).isEqualTo("테스트 게시글");
     }
 
 }
