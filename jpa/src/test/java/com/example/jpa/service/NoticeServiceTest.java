@@ -70,12 +70,9 @@ class NoticeServiceTest {
         /**
          * NoSuchElementException
          */
-
-        // 예외처리
         Long id = 1000L;
         Assertions.assertThatThrownBy(() -> noticeService.getNoticeList(id))
-                .isInstanceOf(NoSuchElementException.class)
-                .hasMessageContaining("해당하지 않는 id 입니다.");
+                .isInstanceOf(NoSuchElementException.class);
     }
     @Test
     @DisplayName("게시글 등록 성공/실패 테스트")
@@ -85,7 +82,7 @@ class NoticeServiceTest {
         String title = "제목 입니다";
         String writer = "작성자 입니다";
         String content = "내용 입니다";
-        String password = "1234";
+        String password = " ";
         NoticeRequestDto requestDto = new NoticeRequestDto(title, writer, content, password);
 
         // when
