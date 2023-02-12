@@ -2,51 +2,164 @@ package com.example.jpa.controller;
 
 import com.example.jpa.domain.Notice;
 import com.example.jpa.repository.NoticeRepository;
+import com.example.jpa.request.NoticeRequestDto;
+import com.example.jpa.response.NoticeResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.List;
-import java.util.Optional;
+import javax.transaction.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * 어떤값이 주어지고(given), 무엇을 했을때(when), 어떤 값을 원한다(then)
+ */
 
-@WebMvcTest(value = {NoticeController.class})
-@ExtendWith(MockitoExtension.class)
-//@AutoConfigureWebMvc // 이 어노테이션을 통해 MockMvc를 Builder 없이 주입받을 수 있음
+@Transactional
+@AutoConfigureMockMvc
+@SpringBootTest
 class NoticeControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    protected MockMvc mvc;
+    @Autowired
+    protected ObjectMapper mapper;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private NoticeRepository noticeRepository;
 
-    // NoticeController에서 잡고 있는 Bean 객체에 대해 Mock 형태의 객체를 생성해줌
-//    @MockBean
-    NoticeRepository noticeRepository;
-
-    @BeforeEach
-    void setup() {
-        Notice notice = new Notice(100L, "테스트 제목", "테스트 작성자", "테스트 내용", "1234");
-        given(noticeRepository.save(notice)).willReturn(notice); // 저장
-        given(noticeRepository.findById(100L)).willReturn(Optional.of(notice)); // 상세조회
-        given(noticeRepository.findAllByOrderByIdDesc()).willReturn(List.of(notice)); // 전체조회
+    @AfterEach
+    public void cleanData() {
+        noticeRepository.deleteAll();
     }
 
-//    @Test
-//    @DisplayName("[TEST] Notice  id(100) - 성공")
-//    void getNoticeListTest() {
-//        mockMvc.perform(post("/api/notice/{id}", 100L))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    @DisplayName("게시글 상세조회")
+    void 게시글_상세조회_테스트() throws Exception {
+        // given
+        // 1. 데이터를 저장
+        NoticeResponseDto initData = saveData();
+        Long id = initData.getId();
+
+        // when
+        ResultActions resultActions = mvc.perform(post("/jpa/notice/{id}", id)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id));
+
+    }
+
+
+    @Test
+    @DisplayName("게시글 생성")
+    void 게시글_생성_테스트() throws Exception {
+        // given
+        String title = "제목 입니다";
+        String writer = "작성자 입니다";
+        String content = "내용 입니다";
+        String password = "1234";
+        NoticeRequestDto requestDto = new NoticeRequestDto(title, writer, content, password);
+
+        // when
+        /**
+         * mvc.perform() 메소드는 MockMvcRequestBuilders를 매개변수로 받아, ResultActions를 return하는 메소드
+         * MockMvcRequestBuilders를 반환하는 정적 메소드로는 post(), get(), put(), delete() 등이 존재
+         */
+        ResultActions resultActions = mvc.perform(post("/jpa/notice")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(requestDto))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print()); //로그를 출력하는 등의 행동
+
+        //then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data[0].id", is(notNullValue())));
+
+    }
+
+    @Test
+    @DisplayName("게시글 수정 테스트")
+    void 게시글_수정_테스트() throws Exception {
+        // given
+        // 1. 데이터를 저장
+        NoticeResponseDto initData = saveData();
+        Long id = initData.getId();
+
+        String title = "제목 수정 입니다";
+        String writer = "영희";
+        String content = "내용 수정 입니다";
+        String password = "4322";
+        NoticeRequestDto requestDto = new NoticeRequestDto(title, writer, content, password);
+
+        // when
+        ResultActions resultActions = mvc.perform(put("/jpa/notice/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(requestDto))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print()); //로그를 출력하는 등의 행동
+
+        //then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.data[0].id").value(id))
+                .andExpect(jsonPath("$.data.data[0].writer").value("영희"));
+
+    }
+
+    @DisplayName("게시글 삭제")
+    @Test
+    void 게시글_삭제_테스트() throws Exception{
+        // given
+        // 1. 데이터를 저장
+        NoticeResponseDto initData = saveData();
+        Long id = initData.getId();
+
+        // when
+        ResultActions resultActions = mvc.perform(delete("/jpa/notice/{id}", id)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        // then
+        resultActions
+                .andExpect(status().isOk());
+    }
+    @Transactional
+    @Rollback(value = false)
+    NoticeResponseDto saveData() {
+
+        Notice notice = Notice.builder()
+                .title("제목입니다.")
+                .writer("영희")
+                .content("내용입니다.")
+                .password("1234")
+                .build();
+        noticeRepository.save(notice);
+
+        return NoticeResponseDto.builder()
+                .id(notice.getId())
+                .title(notice.getTitle())
+                .writer(notice.getWriter())
+                .content(notice.getContent())
+                .password(notice.getPassword())
+                .build();
+    }
 }

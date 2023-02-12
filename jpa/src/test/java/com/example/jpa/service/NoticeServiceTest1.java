@@ -1,17 +1,16 @@
 package com.example.jpa.service;
 
 import com.example.jpa.response.NoticeResponseDto;
-import com.example.jpa.response.ResponseDto;
 import org.assertj.core.api.Assertions;
 import com.example.jpa.domain.Notice;
 import com.example.jpa.repository.NoticeRepository;
 import com.example.jpa.request.NoticeRequestDto;
-import org.junit.Before;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -20,7 +19,7 @@ import java.util.Optional;
  *  Notice 서비스 테스트 코드
  *  상세조회   성공 테스트
  *  상세조회   실패 테스트 - 해당아이디가 존재하지 않음
- *   등록     성공 테스트 
+ *   등록     성공 테스트
  *   등록     실패 테스트
  *   수정     성공 테스트
  *   수정     실패 테스트
@@ -29,7 +28,8 @@ import java.util.Optional;
  */
 
 @SpringBootTest
-class NoticeServiceTest {
+//@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+class NoticeServiceTest1 {
     @Autowired
     private NoticeService noticeService;
     @Autowired
@@ -55,34 +55,35 @@ class NoticeServiceTest {
 
         // given
         NoticeResponseDto init = saveData();
-        Optional<Notice> firstData = noticeRepository.findById(init.getId());
+        Optional<Notice> initData = noticeRepository.findById(init.getId());
 
         // when
-        NoticeResponseDto selectData = noticeService.getNoticeList(firstData.get().getId());
+        NoticeResponseDto selectData = noticeService.getNoticeList(initData.get().getId());
 
         // then
-        Assertions.assertThat(firstData.get().getId()).isEqualTo(selectData.getId());
+        Assertions.assertThat(initData.get().getId()).isEqualTo(selectData.getId());
         
     }
     @Test
-    @DisplayName("게시글 상세조회 실패 테스트")
-    void 게시글_상세조회_예외처리_1() {
+    @DisplayName("게시글 아이디가 없는경우 예외처리")
+    void 게시글_아이디가_없는경우_예외처리() throws Exception {
         /**
          * NoSuchElementException
          */
         Long id = 1000L;
-        Assertions.assertThatThrownBy(() -> noticeService.getNoticeList(id))
+        Assertions.assertThatThrownBy(() -> noticeRepository.findById(id))
                 .isInstanceOf(NoSuchElementException.class);
     }
+
     @Test
-    @DisplayName("게시글 등록 성공/실패 테스트")
+    @DisplayName("게시글 등록 성공 테스트")
     void 게시글_등록_테스트() {
 
         //given
         String title = "제목 입니다";
         String writer = "작성자 입니다";
         String content = "내용 입니다";
-        String password = " ";
+        String password = "1234";
         NoticeRequestDto requestDto = new NoticeRequestDto(title, writer, content, password);
 
         // when
@@ -98,10 +99,23 @@ class NoticeServiceTest {
         Assertions.assertThat(testResult.get().getPassword()).isEqualTo(password);
 
     }
+    @DisplayName("게시글 등록 실패")
+    @Test
+    void 게시글_등록_예외_테스트() throws Exception {
+        String title = null;
+        String writre = "ddd";
+        String content = "dfsd ";
+        String password = "1234";
+
+        NoticeRequestDto noticeRequestDto = new NoticeRequestDto(title, writre, content, password);
+
+        Assertions.assertThatThrownBy(() -> noticeService.createNotice(noticeRequestDto))
+                .isInstanceOf(MethodArgumentNotValidException.class);
+    }
 
     @DisplayName("게시글 수정")
     @Test
-    void 게시글_수정_테스트() {
+    void 게시글_수정_테스트() throws Exception{
         System.out.println("modifyNoticeTest");
 
         // given
@@ -111,18 +125,18 @@ class NoticeServiceTest {
         String password = "4321";
         NoticeRequestDto requestDto = new NoticeRequestDto(title, writer, content, password);
 
-        // 1. 데이터를 저장한다
-        NoticeResponseDto firstData = saveData();
+        // 1. 데이터 저장
+        NoticeResponseDto initData = saveData();
         // 2. 수정 전 데이터
-        Optional<Notice> updateBF = noticeRepository.findById(firstData.getId());
+        Optional<Notice> updateBF = noticeRepository.findById(initData.getId());
         // when
         // 3. 수정
-        NoticeResponseDto update = noticeService.modifyNotice(updateBF.get().getId(), requestDto);
+        noticeService.modifyNotice(updateBF.get().getId(), requestDto);
         // 4. 수정 후 데이터
         Optional<Notice> updateAT = noticeRepository.findById(updateBF.get().getId());
 
-        // then
-        Assertions.assertThat(updateBF).isNotEqualTo(updateAT);
+        // then => 수정 전, 후 아이디는 같고, 데이터는 다르다
+        Assertions.assertThat(updateBF.get().getId()).isEqualTo(updateAT.get().getId());
         Assertions.assertThat(updateBF.get().getTitle()).isNotEqualTo(updateAT.get().getTitle());
         Assertions.assertThat(updateBF.get().getWriter()).isNotEqualTo(updateAT.get().getWriter());
         Assertions.assertThat(updateBF.get().getContent()).isNotEqualTo(updateAT.get().getContent());
@@ -134,15 +148,15 @@ class NoticeServiceTest {
     void 게시글_삭제_테스트() {
         
         // given
-        // 1. 데이터를 저장한다
-        NoticeResponseDto firstData = saveData();
+        // 1. 데이터를 저장
+        NoticeResponseDto initData = saveData();
         // 2. 삭제 전 데이터 조회
-        Optional<Notice> deleteBF = noticeRepository.findById(firstData.getId());
+        Optional<Notice> deleteBF = noticeRepository.findById(initData.getId());
         
         // when
         // 3. 데이터 삭제
         noticeService.deleteNotice(deleteBF.get().getId());
-        Optional<Notice> deleteAT = noticeRepository.findById(firstData.getId());
+        Optional<Notice> deleteAT = noticeRepository.findById(initData.getId());
 
         //then
         Assertions.assertThat(deleteAT).isEmpty();
@@ -167,12 +181,5 @@ class NoticeServiceTest {
                 .content(notice.getContent())
                 .password(notice.getPassword())
                 .build();
-    }
-
-    /**
-     *
-     */
-    void isBlank(Long id) {
-
     }
 }
