@@ -18,6 +18,9 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import javax.transaction.Transactional;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -56,14 +59,11 @@ class NoticeControllerTest {
         Long id = initData.getId();
 
         // when
-        ResultActions resultActions = mvc.perform(post("/jpa/notice/{id}", id)
+        mvc.perform(post("/jpa/notice/{id}", id)
                         .accept(MediaType.APPLICATION_JSON))
-                .andDo(print());
-
-        // then
-        resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id));
+                .andExpect(jsonPath("$.id").value(id))
+                .andDo(print());
 
     }
 
@@ -83,16 +83,13 @@ class NoticeControllerTest {
          * mvc.perform() 메소드는 MockMvcRequestBuilders를 매개변수로 받아, ResultActions를 return하는 메소드
          * MockMvcRequestBuilders를 반환하는 정적 메소드로는 post(), get(), put(), delete() 등이 존재
          */
-        ResultActions resultActions = mvc.perform(post("/jpa/notice")
+        mvc.perform(post("/jpa/notice")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(requestDto))
                         .accept(MediaType.APPLICATION_JSON))
-                .andDo(print()); //로그를 출력하는 등의 행동
-
-        //then
-        resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data[0].id", is(notNullValue())));
+                .andExpect(jsonPath("$.data[0].id", is(notNullValue())))
+                .andDo(print());
 
     }
 
@@ -127,7 +124,7 @@ class NoticeControllerTest {
 
     @DisplayName("게시글 삭제")
     @Test
-    void 게시글_삭제_테스트() throws Exception{
+    void 게시글_삭제_테스트() throws Exception {
         // given
         // 1. 데이터를 저장
         NoticeResponseDto initData = saveData();
@@ -136,12 +133,16 @@ class NoticeControllerTest {
         // when
         ResultActions resultActions = mvc.perform(delete("/jpa/notice/{id}", id)
                         .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andDo(print());
 
-        // then
-        resultActions
-                .andExpect(status().isOk());
+        // todo: repo로 id값 확인
+        Optional<Notice> deleteData = noticeRepository.findById(id);
+
+        //todo 삭제값 확인
+        assertThat(deleteData).isEqualTo(Optional.empty());
     }
+
     @Transactional
     @Rollback(value = false)
     NoticeResponseDto saveData() {

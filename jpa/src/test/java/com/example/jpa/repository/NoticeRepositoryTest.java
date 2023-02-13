@@ -1,22 +1,15 @@
 package com.example.jpa.repository;
 
 import com.example.jpa.domain.Notice;
-import com.example.jpa.request.NoticeRequestDto;
-import com.example.jpa.response.NoticeResponseDto;
+import org.assertj.core.api.Assertions;
 import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -73,9 +66,13 @@ class NoticeRepositoryTest {
                 .password(password)
                 .build());
 
-        Optional<Notice> result = noticeRepository.findById(save.getId());
+        Optional<Notice> saveData = noticeRepository.findById(save.getId());
+        noticeRepository.deleteById(saveData.get().getId());
 
-        noticeRepository.deleteById(result.get().getId());
+        Optional<Notice> deleteData = noticeRepository.findById(saveData.get().getId());
+
+        //todo 삭제값 확인
+        assertThat(deleteData).isEqualTo(Optional.empty());
     }
     
 

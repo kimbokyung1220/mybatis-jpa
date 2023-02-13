@@ -92,6 +92,7 @@ public class NoticeServiceImpl implements NoticeService{
          noticeRepository.save(notice);
 
         NoticeResponseDto responseDto = NoticeResponseDto.builder()
+                .id(notice.getId())
                 .title(notice.getTitle())
                 .writer(notice.getWriter())
                 .content(notice.getContent())

@@ -31,7 +31,7 @@ import java.util.Optional;
 //@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class NoticeServiceTest1 {
     @Autowired
-    private NoticeService noticeService;
+    private NoticeServiceImpl noticeService;
     @Autowired
     private NoticeRepository noticeRepository;
 
@@ -70,9 +70,15 @@ class NoticeServiceTest1 {
         /**
          * NoSuchElementException
          */
-        Long id = 1000L;
-        Assertions.assertThatThrownBy(() -> noticeRepository.findById(id))
-                .isInstanceOf(NoSuchElementException.class);
+        Long id = 150L;
+//        Assertions.assertThatThrownBy(() -> noticeRepository.findById(id))
+//                .isInstanceOf(NoSuchElementException.class);
+
+        Assertions.assertThatThrownBy(() -> noticeService.deleteNotice(id))
+                .isInstanceOf(NoSuchElementException.class)
+                .hasMessage("해당 게시글을 찾지 못했습니다.")
+
+        ;
     }
 
     @Test
@@ -102,7 +108,7 @@ class NoticeServiceTest1 {
     @DisplayName("게시글 등록 실패")
     @Test
     void 게시글_등록_예외_테스트() throws Exception {
-        String title = null;
+        String title = " ";
         String writre = "ddd";
         String content = "dfsd ";
         String password = "1234";
