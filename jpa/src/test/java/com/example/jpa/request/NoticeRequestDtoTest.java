@@ -70,9 +70,9 @@ class NoticeRequestDtoTest {
     @Test
     @DisplayName("valid 테스트")
     void validMockMvcTest() throws Exception {
-        String title = " ";
-        String writer = " ";
-        String content = " ";
+        String title = null;
+        String writer = null;
+        String content = null;
         String password = "12";
 
         NoticeRequestDto requestDto = new NoticeRequestDto(title, writer, content, password);

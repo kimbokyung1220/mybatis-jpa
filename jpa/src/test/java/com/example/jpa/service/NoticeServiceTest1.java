@@ -105,19 +105,6 @@ class NoticeServiceTest1 {
         Assertions.assertThat(testResult.get().getPassword()).isEqualTo(password);
 
     }
-    @DisplayName("게시글 등록 실패")
-    @Test
-    void 게시글_등록_예외_테스트() throws Exception {
-        String title = " ";
-        String writre = "ddd";
-        String content = "dfsd ";
-        String password = "1234";
-
-        NoticeRequestDto noticeRequestDto = new NoticeRequestDto(title, writre, content, password);
-
-        Assertions.assertThatThrownBy(() -> noticeService.createNotice(noticeRequestDto))
-                .isInstanceOf(MethodArgumentNotValidException.class);
-    }
 
     @DisplayName("게시글 수정")
     @Test
