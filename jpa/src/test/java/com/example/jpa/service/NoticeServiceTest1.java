@@ -1,16 +1,16 @@
 package com.example.jpa.service;
 
-import com.example.jpa.response.NoticeResponseDto;
+import com.example.jpa.response.notice.NoticeResponseDto;
+import com.example.jpa.service.notice.NoticeServiceImpl;
 import org.assertj.core.api.Assertions;
 import com.example.jpa.domain.Notice;
 import com.example.jpa.repository.NoticeRepository;
-import com.example.jpa.request.NoticeRequestDto;
+import com.example.jpa.request.notice.NoticeRequestDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;

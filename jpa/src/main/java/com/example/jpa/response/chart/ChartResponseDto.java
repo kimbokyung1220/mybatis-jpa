@@ -1,4 +1,4 @@
-package com.example.jpa.response;
+package com.example.jpa.response.chart;
 
 import lombok.Builder;
 import lombok.Getter;

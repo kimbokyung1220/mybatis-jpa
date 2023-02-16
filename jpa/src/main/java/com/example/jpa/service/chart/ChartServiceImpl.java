@@ -1,9 +1,9 @@
-package com.example.jpa.service;
+package com.example.jpa.service.chart;
 
 import com.example.jpa.domain.Chart;
 import com.example.jpa.repository.ChartRepository;
-import com.example.jpa.response.ChartResponseDto;
-import com.example.jpa.response.ResponseDto;
+import com.example.jpa.response.chart.ChartResponseDto;
+import com.example.jpa.response.CustomResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public class ChartServiceImpl implements ChartService{
     private final ChartRepository chartRepository;
 
     @Transactional(readOnly = true)
-    public ResponseDto<List<ChartResponseDto>> getGridAllList() {
+    public CustomResponseDto<List<ChartResponseDto>> getGridAllList() {
 
         List<Chart> chartList = chartRepository.findAllByOrderByIdDesc();
         List<ChartResponseDto> chartResponseDtoList = new ArrayList<>();
@@ -38,7 +38,7 @@ public class ChartServiceImpl implements ChartService{
             );
         }
 
-        return ResponseDto.success(chartResponseDtoList, "grid 조회");
+        return CustomResponseDto.success(chartResponseDtoList, "grid 조회");
     }
 
 }

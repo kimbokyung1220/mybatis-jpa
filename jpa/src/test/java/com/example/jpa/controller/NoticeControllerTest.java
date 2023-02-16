@@ -2,8 +2,8 @@ package com.example.jpa.controller;
 
 import com.example.jpa.domain.Notice;
 import com.example.jpa.repository.NoticeRepository;
-import com.example.jpa.request.NoticeRequestDto;
-import com.example.jpa.response.NoticeResponseDto;
+import com.example.jpa.request.notice.NoticeRequestDto;
+import com.example.jpa.response.notice.NoticeResponseDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;

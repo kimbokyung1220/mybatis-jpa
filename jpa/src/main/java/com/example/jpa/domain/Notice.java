@@ -1,13 +1,12 @@
 package com.example.jpa.domain;
 
-import com.example.jpa.request.NoticeRequestDto;
+import com.example.jpa.request.notice.NoticeRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 
 @Entity
 @Getter

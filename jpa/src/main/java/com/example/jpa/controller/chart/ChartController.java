@@ -1,8 +1,8 @@
-package com.example.jpa.controller;
+package com.example.jpa.controller.chart;
 
-import com.example.jpa.response.ChartResponseDto;
-import com.example.jpa.response.ResponseDto;
-import com.example.jpa.service.ChartService;
+import com.example.jpa.response.chart.ChartResponseDto;
+import com.example.jpa.response.CustomResponseDto;
+import com.example.jpa.service.chart.ChartService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ public class ChartController {
     private final ChartService chartService;
 
     @GetMapping(value = "/grid")
-    public ResponseDto<List<ChartResponseDto>> getGridAllList() {
+    public CustomResponseDto<List<ChartResponseDto>> getGridAllList() {
         return chartService.getGridAllList();
     }
 

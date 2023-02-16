@@ -1,9 +1,9 @@
-package com.example.jpa.controller;
+package com.example.jpa.controller.notice;
 
-import com.example.jpa.request.NoticeRequestDto;
-import com.example.jpa.response.NoticeResponseDto;
-import com.example.jpa.response.ResponseDto;
-import com.example.jpa.service.NoticeServiceImpl;
+import com.example.jpa.request.notice.NoticeRequestDto;
+import com.example.jpa.response.notice.NoticeResponseDto;
+import com.example.jpa.response.CustomResponseDto;
+import com.example.jpa.service.notice.NoticeServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ public class NoticeController {
      * 게시글 전체 조회
      */
     @GetMapping(value = "/notice")
-    public ResponseDto<Object> getNoticeAllList() {
+    public CustomResponseDto<Object> getNoticeAllList() {
         return noticeService.getNoticeAllList();
     }
 
@@ -36,7 +36,7 @@ public class NoticeController {
      * 게시글 등록
      */
     @PostMapping(value = "/notice")
-    public ResponseDto<Object> createNotice(@Valid @RequestBody NoticeRequestDto requestDto) {
+    public CustomResponseDto<Object> createNotice(@Valid @RequestBody NoticeRequestDto requestDto) {
         noticeService.createNotice(requestDto);
         return noticeService.getNoticeAllList();
     }
@@ -45,17 +45,17 @@ public class NoticeController {
      * 게시글 수정
      */
     @PutMapping(value = "/notice/{id}")
-    public ResponseDto<Object> modifyNotice(@PathVariable Long id, @RequestBody @Valid NoticeRequestDto requestDto) {
+    public CustomResponseDto<Object> modifyNotice(@PathVariable Long id, @RequestBody @Valid NoticeRequestDto requestDto) {
         noticeService.modifyNotice(id, requestDto);
-        return ResponseDto.success(getNoticeAllList(), "Notice_id [" + id + "번] " + " ===> 수정 성공");
+        return CustomResponseDto.success(getNoticeAllList(), "Notice_id [" + id + "번] " + " ===> 수정 성공");
     }
 
     /**
      * 게시글 삭제
      */
     @DeleteMapping(value = "/notice/{id}")
-    public ResponseDto<Object> deleteNotice(@PathVariable Long id) {
+    public CustomResponseDto<Object> deleteNotice(@PathVariable Long id) {
         noticeService.deleteNotice(id);
-        return ResponseDto.success(getNoticeAllList(), "Notice_id [" + id + "번] " + " ===> 삭제 성공");
+        return CustomResponseDto.success(getNoticeAllList(), "Notice_id [" + id + "번] " + " ===> 삭제 성공");
     }
 }

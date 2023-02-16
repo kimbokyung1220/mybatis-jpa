@@ -1,16 +1,15 @@
-package com.example.jpa.service;
+package com.example.jpa.service.notice;
 
-import com.example.jpa.domain.Notice;
-import com.example.jpa.request.NoticeRequestDto;
-import com.example.jpa.response.NoticeResponseDto;
-import com.example.jpa.response.ResponseDto;
+import com.example.jpa.request.notice.NoticeRequestDto;
+import com.example.jpa.response.notice.NoticeResponseDto;
+import com.example.jpa.response.CustomResponseDto;
 
 public interface NoticeService {
 
     /**
      * 게시글 전체 조회
      */
-    ResponseDto<Object> getNoticeAllList();
+    CustomResponseDto<Object> getNoticeAllList();
     /**
      * 게시글 상세조회
      */

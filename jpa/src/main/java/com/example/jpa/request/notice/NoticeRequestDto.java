@@ -1,4 +1,4 @@
-package com.example.jpa.request;
+package com.example.jpa.request.notice;
 
 
 import lombok.Builder;

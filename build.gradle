@@ -51,6 +51,9 @@ subprojects {
         testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.1'
         // json-path
         implementation 'com.jayway.jsonpath:json-path:2.7.0'
+        // security
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        testImplementation 'org.springframework.security:spring-security-test'
 
     }
 

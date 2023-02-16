@@ -1,9 +1,9 @@
 package com.example.jpa.service;
 
 import com.example.jpa.domain.Notice;
-import com.example.jpa.exception.CustomException;
 import com.example.jpa.repository.NoticeRepository;
-import com.example.jpa.response.NoticeResponseDto;
+import com.example.jpa.response.notice.NoticeResponseDto;
+import com.example.jpa.service.notice.NoticeServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,18 +1,15 @@
-package com.example.jpa.service;
+package com.example.jpa.service.notice;
 
 import com.example.jpa.domain.Notice;
-import com.example.jpa.exception.CustomException;
 import com.example.jpa.exception.ErrorCode;
 import com.example.jpa.repository.NoticeRepository;
-import com.example.jpa.request.NoticeRequestDto;
-import com.example.jpa.response.NoticeResponseDto;
-import com.example.jpa.response.ResponseDto;
+import com.example.jpa.request.notice.NoticeRequestDto;
+import com.example.jpa.response.notice.NoticeResponseDto;
+import com.example.jpa.response.CustomResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -28,7 +25,7 @@ public class NoticeServiceImpl implements NoticeService{
      */
     @Override
     @Transactional(readOnly = true)
-    public ResponseDto<Object> getNoticeAllList() {
+    public CustomResponseDto<Object> getNoticeAllList() {
 
         // 최신글부터 조회
         List<Notice> noticeList = noticeRepository.findAllByOrderByIdDesc();
@@ -48,7 +45,7 @@ public class NoticeServiceImpl implements NoticeService{
             );
         }
 
-        return ResponseDto.success(noticeDtoAllList,"전체조회를 성공했습니다.");
+        return CustomResponseDto.success(noticeDtoAllList,"전체조회를 성공했습니다.");
     }
 
     /**
