@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -84,7 +85,7 @@ public class CustomExceptionHandler {
                         .build());
     }
 
-    // [Exception] 클라이언트에서 잘못된 메서드로 요청했을 경우ㅌ
+    // [Exception] 클라이언트에서 잘못된 메서드로 요청했을 경우
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Object processValidationError(HttpRequestMethodNotSupportedException e) {
         return ResponseEntity
@@ -93,6 +94,19 @@ public class CustomExceptionHandler {
                         .code(ErrorCode.METHOD_ERROR.getCode())
                         .desc(ErrorCode.METHOD_ERROR.getMessage())
                         .status(ErrorCode.METHOD_ERROR.getStatus())
+                        .build());
+    }
+
+
+    // [Exception] 클라이언트에서 잘못된 메서드로 요청했을 경우
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public Object processValidationError(UsernameNotFoundException e) {
+        return ResponseEntity
+                .status(ErrorCode.NOT_FOUND_USERID.getStatus())
+                .body(ErrorResponse.builder()
+                        .code(ErrorCode.NOT_FOUND_USERID.getCode())
+                        .desc(ErrorCode.NOT_FOUND_USERID.getMessage())
+                        .status(ErrorCode.NOT_FOUND_USERID.getStatus())
                         .build());
     }
 

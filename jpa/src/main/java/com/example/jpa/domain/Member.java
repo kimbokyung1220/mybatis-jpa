@@ -24,8 +24,8 @@ public class Member {
     private String password;
     private String role;
     
-    // 비밀번호 암호화
-    public void encodePassword(PasswordEncoder passwordEncoder) {
+    // 로그인 시, 비밀번호와 암호화된 비밀번호가 일치하는지
+    public void encodePasswordCheck(PasswordEncoder passwordEncoder, String password) {
         this.password = passwordEncoder.encode(this.password);
     }
 

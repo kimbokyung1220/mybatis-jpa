@@ -41,6 +41,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin(); //Form 로그인
+        http
+                .headers().frameOptions().disable(); //h2-console화면을 사용하기 위해 해당 옵션을 disable처리
+
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/common/login").permitAll()
+                .antMatchers("/join").permitAll()
+                .and()
+                // 로그인기능
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/common/login")
+                .failureUrl("/login?error")
+        ;
     }
 }

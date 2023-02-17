@@ -1,13 +1,11 @@
-package com.example.jpa.request.user;
+package com.example.jpa.response;
 
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
-
 @Getter
 @Builder
-public class LoginRequestDto {
+public class LoginResponseDto {
     // todo: @NotBlank 추가?
     private String userid;
     private String password;

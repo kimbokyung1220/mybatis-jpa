@@ -18,6 +18,7 @@ public enum ErrorCode {
 
     //사용자 Error
     NOT_FOUND_ID("UER-01", HttpStatus.BAD_REQUEST, "해당 게시글을 찾지 못했습니다."),
+    NOT_FOUND_USERID("UER-02", HttpStatus.BAD_REQUEST, "존재하지 않는 아이디입니다."),
     ;
 
     private final String code;
